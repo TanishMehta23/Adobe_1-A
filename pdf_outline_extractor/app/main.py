@@ -1,44 +1,46 @@
-import os
+echo 'import os
 import json
-import fitz  # PyMuPDF
+import fitz
+
+def extract_title(page):
+    text_dict = page.get_text("dict")
+    if len(text_dict["blocks"]) > 0:
+        for block in text_dict["blocks"]:
+            if block["type"] == 0 and len(block["lines"]) > 0:
+                for line in block["lines"]:
+                    if len(line["spans"]) > 0:
+                        title = line["spans"][0]["text"].strip()
+                        if title:
+                            return title
+    return None
 
 def extract_headings_from_page(page):
     blocks = page.get_text("dict")["blocks"]
     headings = []
     for b in blocks:
-        if b['type'] == 0:  # text
-            for l in b['lines']:
-                for span in l['spans']:
-                    # Simple heading logic: large bold, or all-caps, or unique font
-                    if (span['size'] >= 14 and span['flags'] & 2) or span['text'].isupper():
-                        heading_text = span['text'].strip()
-                        if len(heading_text) > 2 and heading_text.replace(' ', '').isalnum():
-                            headings.append((heading_text, span['size']))
+        if b["type"] == 0:
+            for l in b["lines"]:
+                for span in l["spans"]:
+                    if (span["size"] >= 14 and span["flags"] & 2) or span["text"].isupper():
+                        heading_text = span["text"].strip()
+                        if len(heading_text) > 2 and heading_text.replace(" ", "").isalnum():
+                            headings.append((heading_text, span["size"]))
     return headings
 
 def assign_levels(sorted_headings):
-    levels = []
-    # Heuristic: assign H1 to biggest, H2 to next, etc.
     if not sorted_headings:
         return []
-    sizes = list(sorted(set(size for _, size in sorted_headings), reverse=True))
-    for text, size, page_num in sorted_headings:
-        if size == sizes[0]:
-            level = "H1"
-        elif len(sizes) > 1 and size == sizes[1]:
-            level = "H2"
-        else:
-            level = "H3"
-        levels.append({"level": level, "text": text, "page": page_num})
-    return levels
+    return [{"title": text, "page": page} for text, _, page in sorted_headings]
 
 def process_pdf(input_path):
     doc = fitz.open(input_path)
+    title = extract_title(doc[0]) or os.path.splitext(os.path.basename(input_path))[0]
+    
     headings = []
     for i, page in enumerate(doc, start=1):
         page_headings = extract_headings_from_page(page)
         headings += [(text, size, i) for (text, size) in page_headings]
-    # Remove duplicates, sort by page/occurrence/order
+    
     seen = set()
     filtered = []
     for t, s, p in headings:
@@ -46,26 +48,25 @@ def process_pdf(input_path):
         if key not in seen:
             filtered.append((t, s, p))
             seen.add(key)
+    
     outline = assign_levels(filtered)
-    # Title = first H1 or first heading
-    title = outline[0]["text"] if outline else os.path.basename(input_path)
+    doc.close()
     return {"title": title, "outline": outline}
 
 def main():
-    input_dir = "./input"
-    output_dir = "./output"
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    input_dir = os.path.join(current_dir, "input")
+    output_dir = os.path.join(current_dir, "output")
     
-    # Create output directory if it doesn't exist
     os.makedirs(output_dir, exist_ok=True)
     
-    # Check if input directory exists and has PDF files
     if not os.path.exists(input_dir):
-        print(f"Error: Input directory '{input_dir}' does not exist")
+        print(f"Error: Input directory \'{input_dir}\' does not exist")
         return
     
-    pdf_files = [f for f in os.listdir(input_dir) if f.endswith('.pdf')]
+    pdf_files = [f for f in os.listdir(input_dir) if f.endswith(".pdf")]
     if not pdf_files:
-        print(f"No PDF files found in '{input_dir}'")
+        print(f"No PDF files found in \'{input_dir}\'")
         return
     
     print(f"Found {len(pdf_files)} PDF files to process...")
@@ -88,4 +89,4 @@ def main():
     print("Processing complete!")
 
 if __name__ == "__main__":
-    main()
+    main()' > app/main.py

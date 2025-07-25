@@ -13,29 +13,6 @@ This is a complete solution for **Challenge 1a** of the Adobe India Hackathon 20
 ✅ **Open Source Libraries**: Uses only PyMuPDF and Python standard library  
 ✅ **Resource Efficient**: Stays within 16GB RAM constraint  
 
-## 📁 Project Structure
-
-```
-pdf_outline_extractor/
-├── input/                    # PDF files for processing
-│   ├── file01.pdf
-│   ├── file02.pdf
-│   ├── file03.pdf
-│   ├── file04.pdf
-│   └── file05.pdf
-├── output/                   # Generated JSON output files
-│   ├── file01.json
-│   ├── file02.json
-│   ├── file03.json
-│   ├── file04.json
-│   └── file05.json
-├── app/                      # Legacy development files
-├── Dockerfile                # Docker container configuration (AMD64)
-├── process_pdfs.py          # Main processing script (Challenge entry point)
-├── README.md    
-├── requirements.txt
-```
-
 ## 🚀 Quick Start
 
 ### Option 1: Local Execution (Recommended for Testing)

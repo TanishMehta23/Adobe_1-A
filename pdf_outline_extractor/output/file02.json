@@ -1,5 +1,5 @@
 {
-  "title": "file02",
+  "title": "Overview Foundation Level Extensions",
   "outline": [
     {
       "level": "H1",
@@ -7,12 +7,12 @@
       "page": 1
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "Revision History",
       "page": 3
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "Table of Contents",
       "page": 4
     },
@@ -28,16 +28,11 @@
     },
     {
       "level": "H1",
-      "text": "Overview of the Foundation Level Extension –",
-      "page": 4
-    },
-    {
-      "level": "H1",
       "text": "References",
       "page": 4
     },
     {
-      "level": "H2",
+      "level": "H1",
       "text": "Acknowledgements",
       "page": 5
     },
@@ -55,11 +50,6 @@
       "level": "H2",
       "text": "2.3 Learning Objectives",
       "page": 7
-    },
-    {
-      "level": "H2",
-      "text": "chapter within each particular extension syllabus.",
-      "page": 8
     },
     {
       "level": "H2",
@@ -85,21 +75,6 @@
       "level": "H2",
       "text": "3.2 Content",
       "page": 10
-    },
-    {
-      "level": "H2",
-      "text": "Chapter 1: Agile Software Development",
-      "page": 10
-    },
-    {
-      "level": "H2",
-      "text": "Chapter 2: Fundamental Agile Testing Principles, Practices, and Processes",
-      "page": 11
-    },
-    {
-      "level": "H2",
-      "text": "Chapter 3: Agile Testing Methods, Techniques, and Tools",
-      "page": 11
     },
     {
       "level": "H2",

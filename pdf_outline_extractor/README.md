@@ -32,11 +32,8 @@ pdf_outline_extractor/
 ├── app/                      # Legacy development files
 ├── Dockerfile                # Docker container configuration (AMD64)
 ├── process_pdfs.py          # Main processing script (Challenge entry point)
-├── temp_main.py             # Development version
-├── requirements.txt         # Python dependencies
-├── README.md               # This file
-├── README_challenge.md     # Challenge-specific documentation
-└── PROJECT_SUMMARY.md     # Project overview
+├── README.md    
+├── requirements.txt
 ```
 
 ## 🚀 Quick Start

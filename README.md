@@ -233,6 +233,4 @@ This solution fully complies with all Adobe India Hackathon Challenge 1a require
 
 This project is open source and available under the MIT License.
 
----
 
-**Ready for Adobe Hackathon Submission** 🚀
